@@ -25,6 +25,7 @@ def fetch_klines(symbol, tf, limit=100):
     return [
         {"close": Decimal(k[4])}
         for k in res.json()
+        if len(k) > 5
     ]
 
 def analyze(symbol, tf):
