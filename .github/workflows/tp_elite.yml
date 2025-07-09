@@ -1,4 +1,4 @@
-name: TP_ELITE every 5 minutes
+name: # تشغيل كل 5 دقائق
 
 on:
   schedule:
