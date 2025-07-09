@@ -1,8 +1,9 @@
 name: # تشغيل كل 5 دقائق
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'  # تشغيل كل 5 دقائق
+    - cron: '*/5 * * * *'
 
 jobs:
   run-bot:
