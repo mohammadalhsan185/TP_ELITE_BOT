@@ -1,29 +1,23 @@
-name: # تشغيل كل 5 دقائق
+name: TP_ELITE every 5 minutes
 
 on:
-  workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
+  workflow_dispatch:
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-
       - name: Install dependencies
         run: pip install requests
-
       - name: Run TP_ELITE
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: |
-          sed -i "s|ضع توكن البوت هنا|$TELEGRAM_TOKEN|" TP_ELITE.py
-          sed -i "s|ضع معرف التليجرام هنا|$TELEGRAM_CHAT_ID|" TP_ELITE.py
-          python TP_ELITE.py
+        run: python TP_ELITE.py
