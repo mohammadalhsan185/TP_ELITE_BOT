@@ -25,25 +25,14 @@ def fetch_klines(symbol, tf, limit=100):
     return [
         {"close": Decimal(k[4])}
         for k in res.json()
-        if len(k) > 5
+        if isinstance(k, list) and len(k) >= 5
     ]
 
 def analyze(symbol, tf):
     candles = fetch_klines(symbol, tf)
+    if not candles:
+        print(f"No candles for {symbol} {tf}")
+        return
     closes = [c["close"] for c in candles]
     price = closes[-1]
     msg = f"""
-📡 تحليل {symbol} ({tf})
-📉 السعر الحالي: {price} USDT
-🕓 {now_iraq()}
-"""
-    send_telegram(msg)
-
-def run_all():
-    for sym in SYMBOLS:
-        for tf in TIMEFRAMES:
-            analyze(sym, tf)
-            time.sleep(1)
-
-if __name__ == "__main__":
-    run_all()
